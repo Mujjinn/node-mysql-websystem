@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
+let todos = [];
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Todo app' });
+  res.render('index', { title: 'ToDo App' });
+});
+
+router.post('/', function(req, res, next) {
+  const todo = req.body.add;
+  todos.push(todo);
+  res.render('index', { title: 'ToDo App' });
 });
 
 module.exports = router;
