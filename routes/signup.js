@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
           title: "Sign up",
           errorMessage: ["このユーザ名は既に使われています"],
           isAuth: isAuth,
-        })
+        });
       } else if (password === repassword) {
         const hashedPassword = await bcrypt.hash(password, 10);
         knex("users")
@@ -38,7 +38,7 @@ router.post('/', function (req, res, next) {
             console.error(err);
             res.render("signup", {
               title: "Sign up",
-              errorMessage: [err.sqlMessage],
+              errorMessage: [err.sqlMessage || err.message || "Registration failed"],
               isAuth: isAuth,
             });
           });
@@ -54,7 +54,7 @@ router.post('/', function (req, res, next) {
       console.error(err);
       res.render("signup", {
         title: "Sign up",
-        errorMessage: [err.sqlMessage],
+        errorMessage: [err.sqlMessage || err.message || "An error occurred"],
         isAuth: isAuth,
       });
     });
